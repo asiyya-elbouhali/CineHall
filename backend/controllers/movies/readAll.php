@@ -17,11 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
     // Récupération des données
     $statement = $movie->readAll();
+    $seatsReservation = $movie->getSeatsByRoom();
 
     if ($statement->rowCount() > 0) {
-        $data = [];
 
-        $data[] = $statement->fetchAll();
+        $data = [
+            'movies'=>$statement->fetchAll(),
+            'seatsReservation'=>$seatsReservation->fetchAll()
+        ];
 
 
         // on renvoie ses données sous format json

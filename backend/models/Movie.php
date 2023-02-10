@@ -25,7 +25,14 @@ class Movie
     public function readAll()
     {
         // On ecrit la requete
-        $sql = "SELECT * FROM movies";
+        $sql = "SELECT movies.*,
+		movies.id AS movieID,
+		rooms.number AS movieRoom,
+        rooms.id AS movieRoomID,
+        rooms.date_movie AS movieDate
+        FROM movies INNER JOIN rooms
+        ON rooms.movie_id=movies.id 
+        ";
 
         // On éxecute la requête
         $req = $this->connexion->query($sql);
@@ -33,6 +40,20 @@ class Movie
         // On retourne le resultat
         return $req;
     }
+    public function getSeatsByRoom()
+    {
+        // On ecrit la requete
+        $sql = "SELECT reservations.seat AS seatsRsrv,
+        rooms.number AS roomRsrv FROM reservations INNER JOIN rooms ON reservations.id_room=rooms.id
+        ";
+
+        // On éxecute la requête
+        $req = $this->connexion->query($sql);
+
+        // On retourne le resultat
+        return $req;
+    }
+
     public function create()
     {
         $sql = "INSERT INTO movies(name,price,image,trailer,description) VALUES(:nom,:prix,:image,:trailler,:description)";

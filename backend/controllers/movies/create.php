@@ -9,6 +9,7 @@ require_once '../../config/Database.php';
 require_once '../../models/Movie.php';
 
 
+
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     // On instancie la base de données
     $database = new Database();

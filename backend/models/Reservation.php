@@ -7,12 +7,11 @@ class Reservation
 
     // Les propritées de l'objet etudiant
     public $id;
-    public $nom; 
-    public $prenom;
-    public $age;
-    public $niveau_id;
-    public $niveau_nom;
-    public $created_at;
+    public $movie; 
+    public $room;
+    public $seat;
+    public $client;
+    public $date;
 
     public function __construct($db)
     {
@@ -26,8 +25,17 @@ class Reservation
     public function readAll()
     {
         // On ecrit la requete
-        $sql = "SELECT e.nom, prenom, age,e.id,niveau_id,
-                n.nom nom_niveuax FROM $this->table e LEFT JOIN niveaux n ON niveau_id = n.id ORDER BY e.created_at DESC ";
+        $sql = "SELECT  reservations.*,
+		rooms.number AS movieRoomReservation,
+        movies.name AS movieReservation ,
+        users.name AS clientReservation
+	    FROM reservations
+        INNER JOIN rooms
+        ON reservations.id_room=rooms.id
+        INNER JOIN movies
+        ON reservations.id_movie=movies.id
+        INNER JOIN users
+        ON reservations.id_client=users.id";
 
         // On éxecute la requête
         $req = $this->connexion->query($sql);
@@ -35,26 +43,48 @@ class Reservation
         // On retourne le resultat
         return $req;
     }
-    public function create()
+    public function create($room,$seat)
     {
-        $sql = "INSERT INTO $this->table(nom,prenom,age,niveau_id,created_at) VALUES(:nom,:prenom,:age,:niveau_id,NOW())";
+        $res = $this->getSeatsByRoom($room,$seat);
+        if ($res){
+            return false;
+        } else{
+        $sql = "INSERT INTO reservations (seat,date,id_movie,id_room,client_token) VALUES(:seat,:date,:movie,:room,:client)";
 
         // Préparation de la réqête
         $req = $this->connexion->prepare($sql);
 
-        // éxecution de la reqête
-        $re = $req->execute([
-            ":nom" => $this->nom,
-            ":prenom" => $this->prenom,
-            ":age" => $this->age,
-            ":niveau_id" => $this->niveau_id
-        ]);
-        if ($re) {
-            return true;
-        } else {
-            return false;
+        $req->bindValue(":seat",$this->seat);
+        $req->bindValue(":date", $this->date);
+        $req->bindValue(":movie", $this->movie);
+        $req->bindValue(":room", $this->room);
+        $req->bindValue(":client", $this->client);
+          // éxecution de la reqête
+          $re = $req->execute();
+          if ($re) {
+              return true;
+          } else {
+              return false;
+          }
         }
     }
+
+
+    
+
+
+
+
+
+    public function getSeatsByRoom($room,$seat){
+        $sql = "SELECT seat FROM reservations INNER JOIN rooms ON reservations.id_room= rooms.id WHERE rooms.id= '{$room}' AND reservations.seat='{$seat}'";
+
+         // On éxecute la requête
+         $req = $this->connexion->query($sql);
+         return (bool)$req->rowCount();
+         
+     }
+
 
     public function update()
     {

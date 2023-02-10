@@ -24,29 +24,30 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     
      {
         $token = bin2hex(random_bytes(16));
-        $user->nom = htmlspecialchars($_POST['nom']);
-        $user->prenom = htmlspecialchars($_POST['prenom']);
-        $user->email = htmlspecialchars($_POST['email']);
-        $user->password = htmlspecialchars($_POST['password']);
+        $user->nom = htmlspecialchars(strip_tags($_POST['nom']));
+        $user->prenom = htmlspecialchars(strip_tags($_POST['prenom']));
+        $user->email = htmlspecialchars(strip_tags($_POST['email']));
+        $user->password = htmlspecialchars(strip_tags($_POST['password']));
         $user->token = $token;
 
-        $mail = $_POST['email'];
-
-        $result = $user->create($mail);
+        $result = $user->create($user->email);
+        
         if ($result) {
-          
-
 
             http_response_code(201);
             echo json_encode([
+                            'succes' => true,
                             'message' => "Login succeed!",
                             'token' => $token
-                             ]);
+                              ]);
 
             
         } else {
-            http_response_code(503);
-            echo json_encode(['message' => "You already have an account with this email!"]);
+            // http_response_code(503);
+            echo json_encode([
+                'succes' => false,
+                'message' => "You already have an account with this email!"
+            ]);
         }
     } else {
         echo json_encode(['message' => "Les données ne sont au complet"]);

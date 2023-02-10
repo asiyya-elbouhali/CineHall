@@ -6,7 +6,7 @@ class Database
     private $host = "localhost";
     private $dbname = "cinehall";
     private $username = "root";
-    private $password = "";
+    private $password = "123456";
 
     // Connexion à la base de données
     public function getConnexion()

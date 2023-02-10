@@ -6,9 +6,9 @@ class User
     private $connexion = null;
 
     // Les propritées de l'objet etudiant
-    public $id;
-    public $nom; 
-    public $prenom; 
+    // public $id;
+    public $nom;
+    public $prenom;
     public $email;
     public $password;
     public $token;
@@ -21,71 +21,76 @@ class User
         }
     }
 
-       // Lecture des étudiants
+    // Lecture des étudiants
 
-       public function readAll()
-       {
-           // On ecrit la requete
-           $sql = "SELECT * FROM users ";
-   
-           // On éxecute la requête
-           $req = $this->connexion->query($sql);
-   
-           // On retourne le resultat
-           return $req;
-       }
-
-    public function create( $mail)
+    public function readAll()
     {
-        $res=$this->findUserByEmail($mail);
-        if($res){
+        // On ecrit la requete
+        $sql = "SELECT * FROM users ";
+
+        // On éxecute la requête
+        $req = $this->connexion->query($sql);
+
+        // On retourne le resultat
+        return $req;
+    }
+
+    public function create($mail)
+    {
+        $res = $this->findUserByEmail($mail);
+        if ($res) {
             return false;
-
-        }else{
-
-        $token = bin2hex(random_bytes(16));
-        $sql = "INSERT INTO users (name,lastName,email,password,token) VALUES(:nom,:prenom,:email,:password,:token)";
-
-        // Préparation de la réqête
-        $req = $this->connexion->prepare($sql);
-        $req->bindValue(":token", $token);
-        $req->bindValue(":nom", $this->nom );
-        $req->bindValue(":prenom", $this->prenom);
-        $req->bindValue(":email", $this->email);
-        $req->bindValue(":password", $this->password);
-
-        // éxecution de la reqête
-        $re = $req->execute();
-        if ($re) {
-            
-                        return true;
         } else {
-            return false;
+            $token = bin2hex(random_bytes(16));
+            $sql = "INSERT INTO users (name,lastName,email,password,token) VALUES(:nom,:prenom,:email,:password,:token)";
+
+            // Préparation de la réqête
+            $req = $this->connexion->prepare($sql);
+            $req->bindValue(":token", $token);
+            $req->bindValue(":nom", $this->nom);
+            $req->bindValue(":prenom", $this->prenom);
+            $req->bindValue(":email", $this->email);
+            $req->bindValue(":password", $this->password);
+
+            // éxecution de la reqête
+            $res = $req->execute();
+            if ($res) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
-    } 
-    public function findUserByEmail($email){
-        $sql = ("SELECT * FROM users WHERE email = :email");
 
-        $req = $this->connexion->prepare($sql);
-        $req->bindValue (':email', $email);
-  
+    public function findUserByEmail($email)
+    {
+        // On ecrit la requete
+        $sql = "SELECT * FROM users WHERE email = '{$email}'";
+        // On éxecute la requête
         $req = $this->connexion->query($sql);
-  
-        //Check Rows
-        if($this->$req){
-          return true;
-        } else {
-          return false;
-        }
-      }
+        return (bool)$req->rowCount();
+    }
+
+    public function findUserByToken($token)
+    {
+        // On ecrit la requete
+        $sql = "SELECT * FROM users WHERE token = '$token'";
+
+        // On éxecute la requête
+        $req = $this->connexion->query($sql);
+        
+        return (bool)$req->rowCount();
+    }
+
+
+
     public function delete()
     {
-        $sql = "DELETE FROM $this->table WHERE id = :id";
+        $sql = "DELETE FROM $this->table WHERE token = :token";
         $req = $this->connexion->prepare($sql);
 
-        $re = $req->execute(array(":id" => $this->id));
+        $re = $req->execute(array(":token" => $this->token));
 
         if ($re) {
             return true;

@@ -1,0 +1,315 @@
+@import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #242333;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* height: 100vh; */
+  font-family: "Lato", sans-serif;
+  margin: 0;
+}
+
+.movie-container {
+  margin: 20px 0;
+}
+
+.movie-container select {
+  background-color: #fff;
+  border: 0;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-left: 10px;
+  padding: 5px 15px 5px 15px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.container_card {
+  perspective: 1000px;
+  margin-bottom: 30px;
+}
+
+.seat {
+  background-color: #444451;
+  height: 26px;
+  width: 32px;
+  margin: 3px;
+  font-size: 50px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.seat.selected {
+  background-color: green;
+}
+
+.seat.sold {
+  background-color: #fff;
+}
+
+.seat:nth-of-type(2) {
+  margin-right: 18px;
+}
+
+.seat:nth-last-of-type(2) {
+  margin-left: 18px;
+}
+
+.seat:not(.sold):hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.showcase .seat:not(.sold):hover {
+  cursor: default;
+  transform: scale(1);
+}
+
+.showcase {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #777;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.showcase li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
+}
+.showcase li small {
+  margin-left: 2px;
+}
+
+.row {
+  display: flex;
+}
+
+.screen {
+  background-color: #fff;
+  height: 120px;
+  width: 100%;
+  margin: 15px 0;
+  transform: rotateX(-48deg);
+  box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+}
+
+p.text{
+    margin: 5px 0;
+}
+
+p.text span{
+    color: rgb(158, 248, 158);
+}
+
+
+
+
+/* home page  */
+
+/*
+Template Name: Planet
+File: Layout CSS
+Author: TemplatesOnWeb
+Author URI: https://www.templateonweb.com/
+Licence: <a href="https://www.templateonweb.com/license">Website Template Licence</a>
+*/
+/*********************center_home****************/
+.carousel-caption{
+  text-align:left;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding:150px 150px;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:100%;
+  color:#fff;
+   }
+  .carousel-caption p{
+  width:45%;
+   }
+  .carousel-indicators{
+  bottom:0; 
+   }
+  
+  
+
+
+
+  /* cards style */
+
+  @charset "UTF-8";
+  @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+  @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+    /* body {
+      background: #e2e2e2;
+      width: 98%;
+      height: 100vh;
+    } */
+  body .card {
+    flex-direction: row;
+    width: 800px;
+    height: 400px;
+    background: transparent;
+    /* position: absolute; */
+    left: 0;
+    right: 0;
+    margin: auto;
+    /* top: 0; */
+    bottom: 0;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    box-shadow: 0px 20px 30px 3px rgba(0, 0, 0, 0.55);
+
+  }
+  body .card_left {
+    width: 40%;
+    height: 400px;
+    float: left;
+    overflow: hidden;
+    background: transparent;
+  }
+  body .card_left img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 0 0 10px;
+    -webkit-border-radius: 10px 0 0 10px;
+    -moz-border-radius: 10px 0 0 10px;
+    position: relative;
+  }
+  body .card_right {
+    width: 60%;
+    float: left;
+    background: #000000;
+    height: 400px;
+    border-radius: 0 10px 10px 0;
+    -webkit-border-radius: 0 10px 10px 0;
+    -moz-border-radius: 0 10px 10px 0;
+  }
+  body .card_right h1 {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    text-align: left;
+    font-size: 40px;
+    margin: 30px 0 0 0;
+    padding: 0 0 0 40px;
+    letter-spacing: 1px;
+  }
+  body .card_right__details ul {
+    list-style-type: none;
+    padding: 0 0 0 40px;
+    margin: 10px 0 0 0;
+  }
+  body .card_right__details ul li {
+    display: inline;
+    color: #e3e3e3;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    padding: 0 40px 0 0;
+  }
+  body .card_right__rating__stars {
+    position: relative;
+    right: 160px;
+    margin: 10px 0 10px 0;
+    /***** CSS Magic to Highlight Stars on Hover *****/
+    /* hover previous stars in list */
+  }
+  body .card_right__rating__stars fieldset, body .card_right__rating__stars label {
+    margin: 0;
+    padding: 0;
+  }
+  body .card_right__rating__stars .rating {
+    border: none;
+  }
+  body .card_right__rating__stars .rating > input {
+    display: none;
+  }
+  body .card_right__rating__stars .rating > label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    display: inline-block;
+    content: "";
+    font-family: FontAwesome;
+  }
+  body .card_right__rating__stars .rating > .half:before {
+    content: "";
+    position: absolute;
+  }
+  body .card_right__rating__stars .rating > label {
+    color: #ddd;
+    float: right;
+  }
+  body .card_right__rating__stars .rating > input:checked ~ label,
+  body .card_right__rating__stars .rating:not(:checked) > label:hover,
+  body .card_right__rating__stars .rating:not(:checked) > label:hover ~ label {
+    color: #FFD700;
+  }
+  body .card_right__rating__stars .rating > input:checked + label:hover,
+  body .card_right__rating__stars .rating > input:checked ~ label:hover,
+  body .card_right__rating__stars .rating > label:hover ~ input:checked ~ label,
+  body .card_right__rating__stars .rating > input:checked ~ label:hover ~ label {
+    color: #FFED85;
+  }
+  body .card_right__review p {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
+    padding: 0 40px 0 40px;
+    letter-spacing: 1px;
+    margin: 10px 0 10px 0;
+    line-height: 20px;
+  }
+  body .card_right__review a {
+    text-decoration: none;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    padding: 0 0 0 40px;
+    color: #ffda00;
+    margin: 0;
+  }
+  body .card_right__button {
+    padding: 0 0 0 40px;
+    margin: 30px 0 0 0;
+  }
+  body .card_right__button a {
+    color: #ffda00;
+    text-decoration: none;
+    font-family: "Montserrat", sans-serif;
+    border: 2px solid #ffda00;
+    padding: 10px 10px 10px 40px;
+    font-size: 12px;
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/343086/COMdoWZ.png);
+    background-size: 12px 12px;
+    background-repeat: no-repeat;
+    background-position: 7% 50%;
+    border-radius: 5px;
+    transition-property: all;
+    transition-duration: 0.5s;
+  }
+  body .card_right__button a:hover {
+    color: #000000;
+    background-color: #ffda00;
+    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/343086/rFQ5dHA.png);
+    background-size: 12px 12px;
+    background-repeat: no-repeat;
+    background-position: 10% 50%;
+    cursor: pointer;
+    transition-property: all;
+    transition-duration: 0.5s;
+  }
+  
