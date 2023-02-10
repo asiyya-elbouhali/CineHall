@@ -113,12 +113,6 @@
   <button type="submit" id="reserve_seat">Make a reservation</button>
 </form>
 
-
-
-
-
-
-
 <script>
 
  
@@ -203,6 +197,13 @@ const solds =document.getElementsByClassName('seat');
 const allSeats =document.querySelectorAll('.seat');
 for (var i = 0; i < allSeats.length; i++) {
   allSeats[i].addEventListener('click', (e)=>{
+
+    for (let k = 0; k < allSeats.length; k++) {
+    if(allSeats[k].classList.contains("selected")){
+      allSeats[k].classList.remove("selected")
+    }
+  }
+   
     const seatSelected=document.getElementById('seatSelected');
     if (seatSelected.value === "") {
       seatSelected.value=e.target.getAttribute("data-value");
