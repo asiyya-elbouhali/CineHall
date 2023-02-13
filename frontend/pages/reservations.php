@@ -117,7 +117,7 @@
 
  
 
-  document.getElementById('userToken').value=sessionStorage.getItem("userToken");
+  document.getElementById('userToken').value   = sessionStorage.getItem("userToken");
 
   const mov = document.getElementById('movie');
   const dateMovie = document.getElementById('dateMovie');
@@ -125,14 +125,15 @@
   const optionMovie = document.getElementById('optionMovie');
   const seats = document.querySelectorAll(".seat");
 
-
+ 
 
   async function getMovies() {
-    const response = await fetch('https://localhost/cinehall/backend/controllers/movies/readAll.php')
+    const response = await fetch('https://localhost/cinehall/backend/controllers/movies/readAll.php');
     const data = await response.json();
     let movie = data.movies;
-    let seatsReservation = data.seatsReservation;
     console.log(data);
+
+    let seatsReservation = data.seatsReservation;
     for (let i = 0; i < movie.length; i++) {
       mov.innerHTML += `<option nom="movieReservation" value="${movie[i].name}">${movie[i].name}</option>`
 
@@ -223,6 +224,12 @@ for (var i = 0; i < allSeats.length; i++) {
   let reservationForm = document.getElementById('reservationForm');
   reservationForm.addEventListener('submit', (e)=>{
     e.preventDefault();
+
+    if(document.getElementById('userToken').value==""){
+      Swal.fire('You need to login first in order to book a seat!');
+
+      window.location = "http://localhost/cinehall/frontend/auth/login.php";
+    }
     // var data = {text: "test from app.html"}
     const formData = new FormData(reservationForm);
 

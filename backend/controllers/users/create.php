@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $user->email = htmlspecialchars(strip_tags($_POST['email']));
         $user->password = htmlspecialchars(strip_tags($_POST['password']));
         $user->token = $token;
-
-        $result = $user->create($user->email);
+ 
+        $result = $user->create($user->email,$user->token);
         
         if ($result) {
 
@@ -40,8 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                             'message' => "Login succeed!",
                             'token' => $token
                               ]);
-
-            
         } else {
             // http_response_code(503);
             echo json_encode([

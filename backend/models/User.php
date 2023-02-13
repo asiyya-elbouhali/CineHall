@@ -35,13 +35,12 @@ class User
         return $req;
     }
 
-    public function create($mail)
+    public function create($mail,$token)
     {
         $res = $this->findUserByEmail($mail);
         if ($res) {
             return false;
         } else {
-            $token = bin2hex(random_bytes(16));
             $sql = "INSERT INTO users (name,lastName,email,password,token) VALUES(:nom,:prenom,:email,:password,:token)";
 
             // Préparation de la réqête
@@ -51,7 +50,6 @@ class User
             $req->bindValue(":prenom", $this->prenom);
             $req->bindValue(":email", $this->email);
             $req->bindValue(":password", $this->password);
-
             // éxecution de la reqête
             $res = $req->execute();
             if ($res) {
@@ -82,7 +80,7 @@ class User
         
         return (bool)$req->rowCount();
     }
-
+ 
 
 
     public function delete()

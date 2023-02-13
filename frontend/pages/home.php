@@ -116,11 +116,11 @@
 
 
 <script>
-      const mov = document.getElementById('cards');
-
-    async function getMovies() {
-    const response = await fetch('https://localhost/cinehall/backend/controllers/movies/readAll.php')
+      const mov = document.getElementById('card');
+      async function getMovies() {
+    const response = await fetch('https://localhost/cinehall/backend/controllers/movies/readAll.php');
     const data = await response.json();
+
     let movie = data[0];
     console.log(movie);
     for (let i = 0; i < movie.length; i++) {
@@ -197,6 +197,6 @@
 
     }
   
-  }
+  };
   getMovies()   
 </script>

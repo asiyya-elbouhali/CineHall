@@ -96,8 +96,8 @@
           if(myData.succes){
             console.log(myData)
             // console.log(myData.token);
-            window.location = "https://localhost/cinehall/frontend/pages/reservations.php";
             sessionStorage.setItem("userToken",myData.token);
+            window.location = "/cinehall/frontend/pages/reservations.php";
           } else {
             Swal.fire ('Wrong Token!') 
           }

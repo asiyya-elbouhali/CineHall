@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
     if ($statement->rowCount() > 0) {
 
-        $data = [
+        $data = [   
             'movies'=>$statement->fetchAll(),
             'seatsReservation'=>$seatsReservation->fetchAll()
         ];
