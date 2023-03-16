@@ -90,10 +90,10 @@
         @change="filter()"
       />
     </h1>
-    <h1 class="text-gray-900 text-2xl text-center font-bold pb-12" v-if="!movies.length">No Movies Found</h1>
+    <h1 class="text-gray-900 text-2xl text-center font-bold pb-12 display-1 textHeader" v-if="!movies.length">No Movies Found</h1>
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 justify-items-center gap-4 mt-16 pb-12"
-      v-if="movies.length"
+      v-if="!check"
     >
       <CardComponent 
         v-for="movie in movies"
@@ -107,6 +107,10 @@
         :shown_at="movie.shown_at"
         :description="movie.description"
       />
+    </div>
+
+    <div v-if="check" class="p-[250px] w-full h-screen">
+       <h1 class="h1 display-1 textHeader">Weekends are not available</h1>
     </div>
     </div>
 </template>
@@ -127,6 +131,7 @@ export default {
       date: "",
       client_ref: localStorage.getItem("client_ref"),
       client_name: localStorage.getItem("client_name"),
+      check:false,
     };
   },
   methods: {
@@ -134,11 +139,20 @@ export default {
       localStorage.clear();
     },
     filter() {
+      
+      var day = new Date(this.date).getDay();
+      console.log(day)
+      if(day == 0 ){
+        this.check= true
+      }else {
+        this.check= false
+     
       axois
         .get(`http://localhost/CinemaHall/api/movies/filter/${this.date}`)
         .then((res) => {
           this.movies = res.data;
         });
+       }
     },
   },
   mounted() {
@@ -157,4 +171,33 @@ export default {
 .home {
   background-image: url("../assets/melightCinema.gif");
 }
+
+.textHeader{
+text-transform: uppercase;
+background-image: linear-gradient(
+-225deg,
+#231557 0%,
+#44107a 29%,
+#ff1361 67%,
+#fff800 100%
+);
+background-size: auto auto;
+background-clip: border-box;
+background-size: 200% auto;
+color: #fff;
+background-clip: text;
+/* text-fill-color: transparent; */
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+animation: textclip 4s ease-in infinite;
+
+font-size: 50px;
+}
+@keyframes textclip {
+to {
+background-position: 200% center;
+}
+}
+
+
 </style>

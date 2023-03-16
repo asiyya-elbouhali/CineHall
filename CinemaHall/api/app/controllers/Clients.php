@@ -16,7 +16,7 @@ class Clients extends Controller
   {
     postHelper();
     $client_info = [
-      'ref' => bin2hex(random_bytes(4)),
+      'ref' => bin2hex(random_bytes(6)),
       'first_name' => $_POST['first_name'],
       'last_name' => $_POST['last_name']
     ];
@@ -26,7 +26,7 @@ class Clients extends Controller
         if ($this->clientModel->login($client_info['ref'])) {
           echo json_encode([
             'Success' => "Registered With Success",
-            'Ref' => 'Here is your ref to login with : `' . $this->clientModel->login($client_info['ref'])->ref . '`'
+            'Ref' => 'Make sur to copy this ref : `' . $this->clientModel->login($client_info['ref'])->ref . '`'
           ]);
         }
       } else {
@@ -83,7 +83,7 @@ class Clients extends Controller
       if ($this->reservationModel->allClientReservations($ref)) {
         echo json_encode($this->reservationModel->allClientReservations($ref));
       } else {
-        echo json_encode(["Unfound" => "You do not have any reservations yet"]);
+        echo json_encode(["Unfound" => "You don't have any reservations yet!"]);
       }
     }
   }

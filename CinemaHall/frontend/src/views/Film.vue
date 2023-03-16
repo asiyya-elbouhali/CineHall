@@ -3,7 +3,7 @@
 <div>
   
     <div
-      class="grid justify-items-center grid-cols-6 gap-2 mt-10 w-1/2 mx-auto pb-10"
+      class="grid justify-items-center  grid-cols-6 gap-2 mt-10 w-1/2 mx-auto pb-10"
     >
       <input
         v-for="n in 40"
@@ -13,7 +13,7 @@
         :disabled="reservedSeats.includes(n)"
         :value="n"
         name="seat_number"
-        class="w-12 h-12 seat"
+        class="w-9 h-9 seat  "
       />
     </div>
 
@@ -21,45 +21,16 @@
       class="flex justify-center justify-between gap-6 items-center w-1/2 mx-auto mb-10"
     >
       <button
-        class="bg-red-500 hover:bg-red-600 hover:text-gray-300 text-gray-200 md:px-8 px-4 md:py-3 py-2 rounded md:font-bold md:ring-2 ring-red-300"
+        class="bg-green-500 hover:bg-green-600 hover:text-gray-300 text-gray-200 md:px-8 px-1 md:py-3 py-1 rounded md:font-bold md:ring-2 ring-green-300"
         @click="book()"
       >
-        Book
+        Make your reservation
       </button>
       <p class="md:text-xl">
-        Presented in {{ movie.name }} at {{ movie.shown_at }}
+        <span class="font-bold"> On </span>{{ movie.name }} <span class="font-bold"> At </span> {{ movie.shown_at }}
       </p>
     </div>
   </div>
-  <div
-      class="relative h-screen bg-no-repeat bg-cover bg-black"
-    >
-      
-      <div class="absolute top-0 left-0 bottom-0">
-        <h1 class="text-white md:text-5xl text-2xl md:ml-24 ml-10 mt-32">
-          {{ movie.title }}
-        </h1>
-        <div class="flex gap-6 items-center md:ml-28 ml-14 md:pt-8 pt-4">
-          <div class="flex gap-2">
-            <h1 class="text-white md:text-4xl text-2xl">{{ movie.rating }}</h1>
-            <img class="w-8 h-8" src="../assets/star.png" alt="" />
-          </div>
-          <h1 class="text-white md:text-2xl text-xl">
-            {{ movie.released_at }}
-          </h1>
-        </div> 
-        <div class="flex gap-44">
-          <p class="text-white w-1/3 md:ml-24 md:pt-8 md:block hidden">
-            {{ movie.description }}
-          </p>
-          <iframe
-            class="rounded ring-2 ring-outset ml-10 md:mt-1 mt-10 md:w-100 md:h-52 w-80 h-38"
-            :src="movie.trailer"
-          >
-          </iframe>
-        </div>
-      </div>
-    </div>
 </template>
 
 <script>
